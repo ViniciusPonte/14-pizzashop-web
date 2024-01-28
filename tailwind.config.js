@@ -10,7 +10,7 @@ module.exports = {
   prefix: '',
   theme: {
     backgroundImage: {
-      'pizza-image': "url('./public/pizza.webp')",
+      'pizza-image': "url('/pizza.webp')",
     },
     container: {
       center: true,
