@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Search, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -23,6 +24,7 @@ const orderFiltersSchema = z.object({
 type OrderFiltersSchema = z.infer<typeof orderFiltersSchema>
 
 export function OrderFilters() {
+  const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const orderId = searchParams.get('orderId') ?? ''
@@ -113,12 +115,14 @@ export function OrderFilters() {
                 <SelectValue></SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="pending">Pendente</SelectItem>
-                <SelectItem value="canceled">Cancelado</SelectItem>
-                <SelectItem value="processing">Em preparo</SelectItem>
-                <SelectItem value="delivering">Em entrega</SelectItem>
-                <SelectItem value="delivered">Entregue</SelectItem>
+                <SelectItem value="all">{t('all')}</SelectItem>
+                <SelectItem value="pending">{t('pending')}</SelectItem>
+                <SelectItem value="canceled">{t('canceled')}</SelectItem>
+                <SelectItem value="processing">
+                  {t('in_preparation')}
+                </SelectItem>
+                <SelectItem value="delivering">{t('delivering')}</SelectItem>
+                <SelectItem value="delivered">{t('delivered')}</SelectItem>
               </SelectContent>
             </Select>
           )
@@ -127,7 +131,7 @@ export function OrderFilters() {
 
       <Button type="submit" variant="secondary" size="xs">
         <Search className="mr-2 h-4 w-4" />
-        Filtrar resultados
+        {t('filter_results')}
       </Button>
 
       <Button
@@ -137,7 +141,7 @@ export function OrderFilters() {
         size="xs"
       >
         <X className="mr-2 h-4 w-4" />
-        Remover filtros
+        {t('remove_filters')}
       </Button>
     </form>
   )

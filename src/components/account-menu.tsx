@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { getManagedRestaurant } from '@/api/get-managed-restaurant'
@@ -20,6 +21,7 @@ import {
 import { Skeleton } from './ui/skeleton'
 
 export function AccountMenu() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
@@ -75,7 +77,7 @@ export function AccountMenu() {
           <DialogTrigger asChild>
             <DropdownMenuItem>
               <Building className="mr-2 h-4 w-4" />
-              Perfil da Loja
+              {t('store_profile')}
             </DropdownMenuItem>
           </DialogTrigger>
           <DropdownMenuItem
@@ -85,7 +87,7 @@ export function AccountMenu() {
           >
             <button className="w-full" onClick={() => signOutFn()}>
               <LogOut className="mr-2 h-4 w-4" />
-              Sair
+              {t('sign_out')}
             </button>
           </DropdownMenuItem>
         </DropdownMenuContent>

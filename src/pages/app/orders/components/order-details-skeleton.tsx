@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
@@ -10,6 +12,7 @@ import {
 } from '@/components/ui/table'
 
 export function OrderDetailsSkeleton() {
+  const { t } = useTranslation()
   return (
     <div className="space-y-6">
       <Table>
@@ -22,21 +25,27 @@ export function OrderDetailsSkeleton() {
           </TableRow>
 
           <TableRow>
-            <TableCell className="text-muted-foreground">Cliente</TableCell>
+            <TableCell className="text-muted-foreground">
+              {t('client')}
+            </TableCell>
             <TableCell className="flex justify-end">
               <Skeleton className="h-5 w-[164px]" />
             </TableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell className="text-muted-foreground">Telefone</TableCell>
+            <TableCell className="text-muted-foreground">
+              {t('phone')}
+            </TableCell>
             <TableCell className="flex justify-end">
               <Skeleton className="h-5 w-[140px]" />
             </TableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell className="text-muted-foreground">E-mail</TableCell>
+            <TableCell className="text-muted-foreground">
+              {t('email')}
+            </TableCell>
             <TableCell className="flex justify-end">
               <Skeleton className="h-5 w-[200px]" />
             </TableCell>
@@ -44,7 +53,7 @@ export function OrderDetailsSkeleton() {
 
           <TableRow>
             <TableCell className="text-muted-foreground">
-              Realizado há
+              {t('carried_out')}
             </TableCell>
             <TableCell className="flex justify-end">
               <Skeleton className="h-5 w-[148px]" />
@@ -56,10 +65,10 @@ export function OrderDetailsSkeleton() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Produto</TableHead>
-            <TableHead className="text-right">Qtd.</TableHead>
-            <TableHead className="text-right">Preço</TableHead>
-            <TableHead className="text-right">Subtotal</TableHead>
+            <TableHead>{t('product')}</TableHead>
+            <TableHead className="text-right">{t('quantity')}</TableHead>
+            <TableHead className="text-right">{t('price')}</TableHead>
+            <TableHead className="text-right">{t('subtotal')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -84,7 +93,7 @@ export function OrderDetailsSkeleton() {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>Total de pedido</TableCell>
+            <TableCell colSpan={3}>{t('order_total')}</TableCell>
             <TableCell className="text-right font-medium">
               <Skeleton className="h-5 w-20" />
             </TableCell>

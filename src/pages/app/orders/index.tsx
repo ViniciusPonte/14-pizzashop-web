@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -11,6 +12,7 @@ import { OrderFilters, OrderTableHeader, OrderTableRow } from './components'
 import { OrderTableSkeleton } from './components/order-table-skeleton'
 
 export function Orders() {
+  const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const orderId = searchParams.get('orderId') ?? ''
@@ -37,9 +39,9 @@ export function Orders() {
 
   return (
     <>
-      <Helmet title="Pedidos" />
+      <Helmet title={t('orders')} />
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">Pedidos</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('orders')}</h1>
 
         <div className="space-y-2.5">
           <OrderFilters />

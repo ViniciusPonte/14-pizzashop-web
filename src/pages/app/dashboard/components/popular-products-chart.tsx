@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { BarChart, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import colors from 'tailwindcss/colors'
 
@@ -25,6 +26,7 @@ interface CustomLabelProps {
 }
 
 export function PopularProductsChart() {
+  const { t } = useTranslation()
   const { data: popularProducts } = useQuery({
     queryKey: ['metrics', 'popular-products'],
     queryFn: getPopularProducts,
@@ -67,7 +69,7 @@ export function PopularProductsChart() {
       <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
-            Produtos populares
+            {t('popular_products')}
           </CardTitle>
           <BarChart className="h-4 w-4 text-muted-foreground" />
         </div>

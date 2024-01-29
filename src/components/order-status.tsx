@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { OrderStatusType } from '@/api/get-orders'
 
 interface OrderStatusProps {
@@ -9,15 +11,17 @@ interface StatusProps {
   dotColor: string
 }
 
-const orderStatusMap: Record<OrderStatusType, StatusProps> = {
-  pending: { label: 'Pendente', dotColor: 'bg-slate-400' },
-  canceled: { label: 'Cancelado', dotColor: 'bg-rose-500' },
-  delivered: { label: 'Entregue', dotColor: 'bg-emerald-500' },
-  delivering: { label: 'Em entrega', dotColor: 'bg-amber-400' },
-  processing: { label: 'Em preparo', dotColor: 'bg-amber-400' },
-}
-
 export function OrderStatus({ status }: OrderStatusProps) {
+  const { t } = useTranslation()
+
+  const orderStatusMap: Record<OrderStatusType, StatusProps> = {
+    pending: { label: t('pending'), dotColor: 'bg-slate-400' },
+    canceled: { label: t('canceled'), dotColor: 'bg-rose-500' },
+    delivered: { label: t('delivered'), dotColor: 'bg-emerald-500' },
+    delivering: { label: t('delivering'), dotColor: 'bg-amber-400' },
+    processing: { label: t('in_preparation'), dotColor: 'bg-amber-400' },
+  }
+
   return (
     <div className="flex items-center gap-2">
       <span

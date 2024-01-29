@@ -3,6 +3,7 @@ import { subDays } from 'date-fns'
 import { Loader2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { DateRange } from 'react-day-picker'
+import { useTranslation } from 'react-i18next'
 import {
   CartesianGrid,
   Line,
@@ -26,6 +27,7 @@ import { Label } from '@/components/ui/label'
 import { formatCurrency } from '@/utils/formatCurrency'
 
 export function RevenueChart() {
+  const { t } = useTranslation()
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
     to: new Date(),
@@ -54,13 +56,13 @@ export function RevenueChart() {
       <CardHeader className="flex-row items-center justify-between pb-8">
         <div className="space-y-1">
           <CardTitle className="text-base font-medium">
-            Receita no período
+            {t('revenue_in_the_period')}
           </CardTitle>
-          <CardDescription>Receita diária no período</CardDescription>
+          <CardDescription>{t('daily_revenue_in_the_period')}</CardDescription>
         </div>
 
         <div className="flex items-center gap-3">
-          <Label>Períodos</Label>
+          <Label>{t('periods')}</Label>
           <DateRangePicker date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>

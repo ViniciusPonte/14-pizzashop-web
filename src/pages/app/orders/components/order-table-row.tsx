@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowRight, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { approveOrder } from '@/api/approve-order'
 import { cancelOrder } from '@/api/cancel-order'
@@ -19,6 +20,7 @@ export interface OrderTableRowProps {
 }
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
 
   function updateOrderStatusOnCache(status: OrderStatusType) {
@@ -85,17 +87,17 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
 
   const orderStatusHandler: Record<OrderStatusType, StatusProps | null> = {
     pending: {
-      label: 'Aprovar',
+      label: t('approve'),
       callback: approveOrderFn,
       disableButton: isApprovingOrder,
     },
     processing: {
-      label: 'Em entrega',
+      label: t('delivering'),
       callback: dispatchOrderFn,
       disableButton: isDispatchingOrder,
     },
     delivering: {
-      label: 'Entregue',
+      label: t('delivered'),
       callback: deliverOrderFn,
       disableButton: isDeliveringOrder,
     },
@@ -145,7 +147,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
           size="xs"
         >
           <X className="mr-2 h-3 w-3" />
-          Cancelar
+          {t('cancel')}
         </Button>
       </TableCell>
     </TableRow>

@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -31,6 +32,7 @@ const storeProfileSchema = z.object({
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>
 
 export function StoreProfileDialog() {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { data: managedRestaurant } = useQuery({
     queryFn: getManagedRestaurant,
@@ -94,31 +96,31 @@ export function StoreProfileDialog() {
         description: data.description,
       })
 
-      toast.success('Perfil atualizado com sucesso!')
+      toast.success(t('profile_updated_successfully'))
     } catch {
-      toast.error('Falha ao atualizar o perfil')
+      toast.error(t('profile_update_error'))
     }
   }
 
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Perfil da loja</DialogTitle>
+        <DialogTitle>{t('store_profile')}</DialogTitle>
         <DialogDescription>
-          Atualize as informações do seu estabelecimento visiveis ao seu cliente
+          {t('establishment_profile_description')}
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={handleSubmit(handleUpdateProfile)}>
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-4  items-center gap-4">
             <Label className="text-right" htmlFor="name">
-              Nome
+              {t('name')}
             </Label>
             <Input className="col-span-3" id="name" {...register('name')} />
           </div>
           <div className="grid grid-cols-4  items-center gap-4">
             <Label className="text-right" htmlFor="decription">
-              Descrição
+              {t('description')}
             </Label>
             <Textarea
               className="col-span-3"
@@ -130,11 +132,11 @@ export function StoreProfileDialog() {
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="ghost" type="button">
-              Cancelar
+              {t('cancel')}
             </Button>
           </DialogClose>
           <Button type="submit" variant="success" disabled={isSubmitting}>
-            Salvar
+            {t('save')}
           </Button>
         </DialogFooter>
       </form>

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { getOrderDetails } from '@/api/get-order-details'
 import { OrderStatus } from '@/components/order-status'
@@ -32,6 +33,7 @@ export interface OrderDetailsProps {
 }
 
 export function OrderDetails({ orderId }: OrderDetailsProps) {
+  const { t } = useTranslation()
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
   const { data: order } = useQuery({
@@ -45,14 +47,16 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
       <DialogTrigger asChild>
         <Button variant="outline" size="xs">
           <Search className="h-3 w-3" />
-          <span className="sr-only">Detalhes do pedido</span>
+          <span className="sr-only">{t('order_details')}</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Pedido: {orderId}</DialogTitle>
-          <DialogDescription>Detalhes do pedido</DialogDescription>
+          <DialogTitle>
+            {t('order')}: {orderId}
+          </DialogTitle>
+          <DialogDescription>{t('order_details')}</DialogDescription>
         </DialogHeader>
 
         {order ? (
@@ -61,7 +65,7 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
               <TableBody>
                 <TableRow>
                   <TableCell className="text-muted-foreground">
-                    Status
+                    {t('status')}
                   </TableCell>
                   <TableCell className="flex justify-end">
                     <OrderStatus status={order.status} />
@@ -70,7 +74,7 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
 
                 <TableRow>
                   <TableCell className="text-muted-foreground">
-                    Cliente
+                    {t('client')}
                   </TableCell>
                   <TableCell className="flex justify-end">
                     {order.customer.name}
@@ -79,16 +83,16 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
 
                 <TableRow>
                   <TableCell className="text-muted-foreground">
-                    Telefone
+                    {t('phone')}
                   </TableCell>
                   <TableCell className="flex justify-end">
-                    {order.customer.phone ?? 'Não informado'}
+                    {order.customer.phone ?? t('uninformed')}
                   </TableCell>
                 </TableRow>
 
                 <TableRow>
                   <TableCell className="text-muted-foreground">
-                    E-mail
+                    {t('email')}
                   </TableCell>
                   <TableCell className="flex justify-end">
                     {order.customer.email}
@@ -97,7 +101,7 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
 
                 <TableRow>
                   <TableCell className="text-muted-foreground">
-                    Realizado há
+                    {t('carried_out')}
                   </TableCell>
                   <TableCell className="flex justify-end">
                     {formatDateFromNow(order.createdAt)}
@@ -109,10 +113,10 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Produto</TableHead>
-                  <TableHead className="text-right">Qtd.</TableHead>
-                  <TableHead className="text-right">Preço</TableHead>
-                  <TableHead className="text-right">Subtotal</TableHead>
+                  <TableHead>{t('product')}</TableHead>
+                  <TableHead className="text-right">{t('quantity')}</TableHead>
+                  <TableHead className="text-right">{t('price')}</TableHead>
+                  <TableHead className="text-right">{t('subtotal')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -137,7 +141,7 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell colSpan={3}>Total de pedido</TableCell>
+                  <TableCell colSpan={3}>{t('order_total')}</TableCell>
                   <TableCell className="text-right font-medium">
                     {formatCurrency(order.totalInCents / 100)}
                   </TableCell>
